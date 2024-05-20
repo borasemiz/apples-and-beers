@@ -1,3 +1,5 @@
+import { ParcelDayData } from './ParcelDayData';
+
 export interface ParcelDetail {
   parcel_id: string;
   parcel_name: string;
@@ -20,11 +22,5 @@ export interface ParcelDetail {
       type: 'Polygon';
     };
   };
-  parcel_daily_data: Array<{
-    Date: string;
-    NDVI: number | null;
-    NDVI_Interpolated: number | null;
-    Covered: boolean;
-    Crop: string | null;
-  }>;
+  parcel_daily_data: Array<ParcelDayData>;
 }
