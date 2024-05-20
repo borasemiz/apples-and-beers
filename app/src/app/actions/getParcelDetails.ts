@@ -6,8 +6,10 @@ interface Params {
   parcelId: string;
 }
 
+export const dynamic = 'force-dynamic';
+
 export async function getParcelDetails({ parcelId }: Params): Promise<ParcelDetail> {
-  const response = await fetch(`http://localhost:8080/parcels/${parcelId}`);
+  const response = await fetch(`${process.env.API_URL}/parcels/${parcelId}`);
 
   if (!response.ok) throw response.status;
 
