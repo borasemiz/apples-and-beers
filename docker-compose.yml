@@ -9,6 +9,13 @@ services:
   #   ports:
   #     - "8501:8501"
   # restart: always
+  frontend:
+    build: ./app
+    restart: always
+    ports:
+      - 3002:3002
+    environment:
+      - API_URL=${API_URL}
   api:
     build: ./api
     environment:

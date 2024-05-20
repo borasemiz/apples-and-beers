@@ -6,8 +6,6 @@ interface Params {
   parcelId: string;
 }
 
-export const dynamic = 'force-dynamic';
-
 export async function getParcelDetails({ parcelId }: Params): Promise<ParcelDetail> {
   const response = await fetch(`${process.env.API_URL}/parcels/${parcelId}`);
 
