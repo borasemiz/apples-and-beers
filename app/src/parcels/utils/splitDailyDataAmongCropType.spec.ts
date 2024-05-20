@@ -50,7 +50,14 @@ describe('splitDailyDataAmongCropType', () => {
         NDVI_Interpolated: 0.3197707006,
         Covered: true,
         Crop: "Bare"
-      }
+      },
+      {
+        Date: "2020-02-22",
+        NDVI: null,
+        NDVI_Interpolated: 0.3197707006,
+        Covered: true,
+        Crop: "Rice"
+      },
     ];
     const result = splitDailyDataAmongCropType(dailyData);
     expect(result).toEqual([
@@ -78,6 +85,15 @@ describe('splitDailyDataAmongCropType', () => {
           Covered: true,
           Crop: "Bare"
         }
+      ],
+      [
+        {
+          Date: "2020-02-22",
+          NDVI: null,
+          NDVI_Interpolated: 0.3197707006,
+          Covered: true,
+          Crop: "Rice"
+        },
       ],
     ]);
   });
