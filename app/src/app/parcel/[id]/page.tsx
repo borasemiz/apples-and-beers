@@ -2,6 +2,7 @@ import { getParcelDetails } from "@/app/actions/getParcelDetails";
 import { CropGrowthHistory } from "@/parcels/components/CropGrowthHistory";
 import { ParcelLocationOnMap } from "@/parcels/components/ParcelLocationOnMap";
 import { Card } from '@/ui/Card';
+import { Flex } from "@radix-ui/themes";
 
 interface Props {
   params: {
@@ -27,7 +28,7 @@ export default async function ParcelID({ params: { id: parcelId } }: Props) {
   } = await getParcelDetails({ parcelId });
 
   return (
-    <>
+    <Flex direction="column" gap="4">
       <Card
         title="Parcel Location"
         description="Here, you can see the parcel's location on the map. The marker shows the center point of the parcel, and the are in the purple lines are the parcel."
@@ -44,6 +45,6 @@ export default async function ParcelID({ params: { id: parcelId } }: Props) {
       >
         <CropGrowthHistory dailyData={parcelDailyData} />
       </Card>
-    </>
+    </Flex>
   );
 }
