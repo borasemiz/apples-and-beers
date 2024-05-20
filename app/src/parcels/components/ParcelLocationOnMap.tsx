@@ -6,7 +6,7 @@ import "leaflet/dist/leaflet.css";
 
 interface Props {
   center: [number, number];
-  areaPoints?: [number, number][];
+  areaPoints: [number, number][];
 }
 
 export function ParcelLocationOnMap({ center, areaPoints }: Props) {
@@ -19,7 +19,7 @@ export function ParcelLocationOnMap({ center, areaPoints }: Props) {
         />
         <Marker position={center} />
 
-        {areaPoints !== undefined ? <Polygon pathOptions={{ color: 'purple' }} positions={areaPoints} /> : null}
+        <Polygon pathOptions={{ color: 'purple' }} positions={areaPoints} />
       </MapContainer>
     </div>
   );
