@@ -11,11 +11,23 @@ interface Props {
 export const dynamic = 'force-dynamic';
 
 export default async function ParcelID({ params: { id: parcelId } }: Props) {
-  const { parcel_daily_data: parcelDailyData } = await getParcelDetails({ parcelId });
+  const {
+    parcel_daily_data: parcelDailyData,
+    parcel_location: {
+      geometry: {
+        coordinates: parcelCoordinates
+      }
+    },
+    parcel_geometry: {
+      geometry: {
+        coordinates: parcelBoundryCoordinates,
+      }
+    },
+  } = await getParcelDetails({ parcelId });
 
   return (
     <div>
-      <ParcelLocationOnMap />
+      <ParcelLocationOnMap center={parcelCoordinates} areaPoints={parcelBoundryCoordinates}  />
       <CropGrowthHistory dailyData={parcelDailyData} />
     </div>
   );
