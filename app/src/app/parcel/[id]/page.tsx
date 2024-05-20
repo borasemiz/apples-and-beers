@@ -1,11 +1,6 @@
-'use client';
-
 import { getParcelDetails } from "@/app/actions/getParcelDetails";
+import { CropGrowthHistory } from "@/parcels/components/CropGrowthHistory";
 import { splitDailyDataAmongCropType } from "@/parcels/utils/splitDailyDataAmongCropType";
-import { ParcelDetail } from "@/types/ParcelDetail";
-import { useEffect, useState } from "react";
-
-type ParcelDailyData = ParcelDetail['parcel_daily_data'][number];
 
 interface Props {
   params: {
@@ -13,19 +8,8 @@ interface Props {
   };
 }
 
-export default function ParcelID({ params: { id: parcelId } }: Props) {
-  const [data, setData] = useState<ParcelDetail>();
-  const [segments, setSegments] = useState<ParcelDailyData[][]>();
+export default async function ParcelID({ params: { id: parcelId } }: Props) {
+  const { parcel_daily_data: parcelDailyData } = await getParcelDetails({ parcelId });
 
-  useEffect(() => {
-    getParcelDetails({ parcelId }).then(data => setData(data)).catch(e => console.error(e));
-  }, [parcelId]);
-
-  useEffect(() => {
-    if (data === undefined) return;
-
-    setSegments(splitDailyDataAmongCropType(data.parcel_daily_data));
-  }, [data]);
-
-  return <pre><code>{JSON.stringify(segments, null, 2)}</code></pre>;
+  return <CropGrowthHistory dailyData={parcelDailyData} />;
 }
