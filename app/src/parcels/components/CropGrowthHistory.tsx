@@ -10,9 +10,19 @@ interface Props {
   dailyData: ParcelDayData[];
 }
 
+function getColorCodeForCrop(crop: string) {
+  const colorCodesOfCrops: Record<string, string> = {
+    Bare: '#4285f4',
+    Grass: '#0f9d58',
+    'Cover Crop': '#db4437',
+  };
+
+  return colorCodesOfCrops[crop] ?? '#f4b400';
+}
+
 export function CropGrowthHistory({ dailyData }: Props) {
   const segments = splitDailyDataAmongCropType(dailyData);
-  const data = [
+  const chartData = [
     [
       { type: "string", id: "History" },
       { type: "string", id: "Name" },
@@ -27,12 +37,15 @@ export function CropGrowthHistory({ dailyData }: Props) {
     ])),
   ];
   
+  const barColors = segments.map(segment => segment[0].Crop === null ? '#000' : getColorCodeForCrop(segment[0].Crop));
+
   return (
     <Chart
       chartType="Timeline"
-      data={data}
+      data={chartData}
       width="100%"
       options={{
+        colors: Array.from(new Set(barColors)),
         timeline: {
           showRowLabels: false,
         },
